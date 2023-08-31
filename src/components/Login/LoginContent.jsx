@@ -1,7 +1,9 @@
-import { Text, View, StyleSheet, Image } from "react-native";
+import { View, StyleSheet } from "react-native";
 import { StyledInput } from "../StyledComponents/TextInput";
 import { StyledText } from "../StyledComponents/Text";
 import { StyledTouchable } from "../StyledComponents/Touchable";
+import { IconButton } from "../StyledComponents/IconButton";
+import { facebook, google } from "../../../assets";
 
 export default function LoginContent() {
   return (
@@ -30,12 +32,12 @@ export default function LoginContent() {
           text={"Forgot Password?"}
           fontSize={12}
           fontWeight={400}
-          color={"#C3C2C2"}
+          color={"#94A967"}
           width={300}
           textAlign={"right"}
         />
         <StyledTouchable
-          backgroundColor={"#C3F7BB"}
+          backgroundColor={"#C0E863"}
           padding={10}
           borderRadius={10}
           width={300}
@@ -58,30 +60,43 @@ export default function LoginContent() {
         />
         <View style={styles.line}></View>
       </View>
-
       <View style={styles.btnContainer}>
-        <View style={styles.btns}>
-          <Image
-            source={{
-              uri: "https://th.bing.com/th/id/OIP.HgH-NjiOdFOrkmwjsZCCfAHaHl?pid=ImgDet&rs=1",
-            }}
-            width={20}
-            height={20}
-          />
-          <StyledTouchable text={"Google"} />
-        </View>
-        <View style={styles.btns}>
-          <Image
-            source={{
-              uri: "https://th.bing.com/th/id/R.f59a002cab3296be34d375dd745facfc?rik=RPJR10%2fPWeZo8Q&riu=http%3a%2f%2fclipart-library.com%2fimages_k%2ffacebook-transparent-icon%2ffacebook-transparent-icon-17.png&ehk=LHqX%2fzdtfl21xpJlTRjnltkVWpiWZ%2f1mnN75SUvclxc%3d&risl=&pid=ImgRaw&r=0",
-            }}
-            width={20}
-            height={20}
-          />
-          <StyledTouchable text={"Facebook"} />
-        </View>
+        <IconButton
+          name={google}
+          text={"Google"}
+          fontSize={15}
+          widthImage={20}
+          heightImage={20}
+          color={"#000"}
+          width={130}
+          height={40}
+          borderWidth={1}
+          flexDirection={"row"}
+          borderRadius={8}
+          borderColor={"#C3C2C2"}
+          justifyContent={"center"}
+          alignItems={"center"}
+          gap={10}
+        />
+        <IconButton
+          name={facebook}
+          text={"Facebook"}
+          fontSize={15}
+          widthImage={20}
+          heightImage={20}
+          color={"#000"}
+          width={130}
+          height={40}
+          borderWidth={1}
+          flexDirection={"row"}
+          borderRadius={8}
+          borderColor={"#C3C2C2"}
+          justifyContent={"center"}
+          alignItems={"center"}
+          gap={10}
+        />
       </View>
-      <View style={{ flexDirection: "row", gap: 20 }}>
+      <View style={{ flexDirection: "row", flex: 1, gap: 20, alignItems: "flex-end", marginBottom: 10 }}>
         <StyledText
           text={"Don't have an account?"}
           fontSize={13}
@@ -93,7 +108,7 @@ export default function LoginContent() {
           text={"Register"}
           fontSize={13}
           fontWeight={400}
-          color={"#C3F7BB"}
+          color={"#94A967"}
           textAlign={"center"}
         />
       </View>
@@ -103,10 +118,10 @@ export default function LoginContent() {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 0.75,
+    flex: .70,
     backgroundColor: "#fff",
     gap: 20,
-    marginTop: 100,
+    marginTop: 50,
     // justifyContent: "center",
     alignItems: "center",
   },
@@ -124,18 +139,7 @@ const styles = StyleSheet.create({
   },
   btnContainer: {
     flexDirection: "row",
-    gap: 80,
+    gap: 50,
     padding: 20,
-  },
-  btns: {
-    flexDirection: "row",
-    gap: 10,
-    borderWidth: 1,
-    width: 100,
-    height: 40,
-    justifyContent: "center",
-    alignItems: "center",
-    borderRadius: 8,
-    borderColor: "#C3C2C2",
   },
 });

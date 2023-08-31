@@ -12,7 +12,7 @@ export default function LoginHeader() {
 
   const styles = StyleSheet.create({
     container: {
-      flex: .25,
+      flex: .30,
       backgroundColor: "#00004d",
       padding: 20,
       justifyContent: "flex-end",
