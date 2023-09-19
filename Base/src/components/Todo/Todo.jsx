@@ -1,14 +1,16 @@
 import { View, StyleSheet } from 'react-native'
 import { StyledText } from '../StyledText'
 import { StyledTouchable } from '../StyledTouchable'
-const Todo = ({ task, isCompleted }) => {
+const Todo = ({ id, task, isCompleted, handleDelete, handleComplete }) => {
   const height = task.length > 20 ? 'auto' : 50
   return (
-    <View style={[styles.container, {height}]}>
+    <View style={[styles.container, isCompleted && styles.taskCompleted, {height}]}>
         <StyledText text={task} fontSize={20} color={'#fff'} fontWeight={'bold'} width={120} />
-        <View style={{ flexDirection: 'row', gap: 10, paddingHorizontal: 10 }}>
-            <StyledTouchable borderWidth={.5} borderColor={'white'} borderRadius={10} width={75} height={30} text={'🗑'} fontSize={18} color={'#fff'} textAlign={'center'} />
-            <StyledTouchable borderWidth={.5} borderColor={'white'} borderRadius={10} width={75} height={30} text={'📝'} fontSize={18} color={'#000'} textAlign={'center'}/>
+        <View style={{ flexDirection: 'row', gap: 8, paddingHorizontal: 10 }}>
+            <StyledTouchable borderWidth={.5} borderColor={'white'} borderRadius={10} width={60} height={30} text={'🗑'} fontSize={18} textAlign={'center'} onPress={() => handleDelete(id)} />
+            <StyledTouchable borderWidth={.5} borderColor={'white'} borderRadius={10} width={60} height={30} text={'📝'} fontSize={18} textAlign={'center'}/>
+            {isCompleted === true ? <StyledTouchable borderWidth={.5} borderColor={'white'} borderRadius={10} width={60} height={30} text={'❌'} fontSize={18} textAlign={'center'} onPress={() => handleComplete(id)} /> :
+            <StyledTouchable borderWidth={.5} borderColor={'white'} borderRadius={10} width={60} height={30} text={'✅'} fontSize={18} textAlign={'center'} onPress={() => handleComplete(id)}/>}
         </View>
     </View>
   )
@@ -25,6 +27,10 @@ const styles = StyleSheet.create({
     backgroundColor: '#382952',
     borderRadius: 10,
     borderWidth: 1,
+  },
+  taskCompleted: {
+    backgroundColor: '#000',
+    borderColor: '#382952',
   },
 })
 

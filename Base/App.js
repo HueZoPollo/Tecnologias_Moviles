@@ -5,7 +5,6 @@ import {
   StyleSheet,
   Text,
   TextInput,
-  TouchableOpacity,
   View,
   Alert,
 } from "react-native";
@@ -18,10 +17,23 @@ export default function App() {
   const [inputValue, setInputValue] = useState("");
   const [tasks, setTasks] = useState([]);
 
+  const handleShowError = (error) =>
+    Alert.alert("Error", error, [{ text: "Aceptar" }]);
+
   const handleAddTask = () => {
     if (inputValue === "") {
-      return;
+      return handleShowError("Deebe ingresar una tarea");
     }
+
+    const exist = tasks.some(
+      (task) => task.task.toLowerCase() === inputValue.toLowerCase()
+    );
+
+    if (exist) {
+      setInputValue("");
+      return handleShowError("La tarea ya existe");
+    }
+
     setTasks([
       ...tasks,
       {
@@ -33,10 +45,29 @@ export default function App() {
     setInputValue("");
   };
 
+  const handleDeleteTask = (id) => {
+    const newTasks = tasks.filter((task) => task.id !== id);
+    setTasks(newTasks);
+  };
+
+  const handleCompleteTask = (id) => {
+    const newTasks = tasks.map((task) =>
+      task.id === id ? { ...task, isCompleted: !task.isCompleted } : task
+    );
+    setTasks(newTasks);
+  }
+
   return (
     <SafeAreaView style={styles.container}>
       <View>
-        <Text style={{ fontSize: 40, fontWeight: "bold", textAlign: "center", color:'white' }}>
+        <Text
+          style={{
+            fontSize: 40,
+            fontWeight: "bold",
+            textAlign: "center",
+            color: "white",
+          }}
+        >
           To do list
         </Text>
         <View
@@ -62,7 +93,7 @@ export default function App() {
             }}
             value={inputValue}
             placeholder="Enter your task"
-            placeholderTextColor={'gray'}
+            placeholderTextColor={"gray"}
             onChangeText={(text) => setInputValue(text)}
           />
           <StyledTouchable
@@ -82,8 +113,14 @@ export default function App() {
       </View>
       <FlatList
         data={tasks}
-        renderItem={({ item: { task, isCompleted } }) => (
-          <Todo task={task} isCompleted={isCompleted} />
+        renderItem={({ item: { id, task, isCompleted } }) => (
+          <Todo
+            task={task}
+            isCompleted={isCompleted}
+            id={id}
+            handleDelete={handleDeleteTask}
+            handleComplete={handleCompleteTask}
+          />
         )}
         keyExtractor={(item) => item.id}
       />
