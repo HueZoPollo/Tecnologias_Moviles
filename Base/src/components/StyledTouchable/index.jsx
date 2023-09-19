@@ -14,6 +14,7 @@ export const StyledTouchable = ({
   color,
   textAlign,
   fontWeight,
+  onPress,
 }) => {
   return (
     <TouchableOpacity
@@ -26,6 +27,7 @@ export const StyledTouchable = ({
         width,
         height,
       }}
+      onPress={onPress}
     >
       <StyledText
         text={text}
