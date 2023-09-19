@@ -57,18 +57,20 @@ export default function App() {
               fontSize: 20,
               borderRadius: 5,
               width: 250,
-              backgroundColor: "white",
-              color: "black",
+              backgroundColor: "#382A53",
+              color: "white",
             }}
             value={inputValue}
+            placeholder="Enter your task"
+            placeholderTextColor={'gray'}
             onChangeText={(text) => setInputValue(text)}
           />
           <StyledTouchable
             onPress={handleAddTask}
-            text={"Add"}
+            text={"➕"}
             width={60}
             height={40}
-            backgroundColor={"blue"}
+            backgroundColor={"#DBD6D6"}
             color={"white"}
             borderRadius={5}
             fontWeight={"bold"}
@@ -85,7 +87,7 @@ export default function App() {
         )}
         keyExtractor={(item) => item.id}
       />
-      <StatusBar style="auto" />
+      <StatusBar style="auto" backgroundColor="#000" />
     </SafeAreaView>
   );
 }
@@ -95,6 +97,6 @@ const styles = StyleSheet.create({
     flex: 1,
     marginTop: Constants.statusBarHeight,
     paddingHorizontal: 20,
-    backgroundColor: "#008012",
+    backgroundColor: "#1E1530",
   },
 });
