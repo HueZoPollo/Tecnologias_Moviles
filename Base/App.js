@@ -6,102 +6,24 @@ import {
   Text,
   TextInput,
   View,
-  Alert,
 } from "react-native";
 import Constants from "expo-constants";
 import Todo from "./src/components/Todo/Todo";
-import { useState } from "react";
 import { StyledTouchable } from "./src/components/StyledTouchable";
+import { useTasks } from "./src/hooks/useTasks";
 
 export default function App() {
-  const [inputValue, setInputValue] = useState("");
-  const [tasks, setTasks] = useState([]);
-  const [isEditing, setIsEditing] = useState(false);
-  const [id, setId] = useState(0);
-
-  const handleShowError = (error) =>
-    Alert.alert("Error", error, [{ text: "Aceptar" }]);
-
-  const handleAddTask = () => {
-    if (inputValue === "") {
-      return handleShowError("Debe ingresar una tarea");
-    }
-
-    const exist = tasks.some(
-      (task) => task.task.toLowerCase() === inputValue.toLowerCase()
-    );
-
-    if (exist) {
-      setInputValue("");
-      return handleShowError("La tarea ya existe");
-    }
-
-    setTasks([
-      ...tasks,
-      {
-        id: tasks.length + 1,
-        task: inputValue,
-        created:
-          new Date().toISOString().substring(0, 10) +
-          " " +
-          new Date().toISOString().substring(11, 19),
-        updated: "",
-        isCompleted: false,
-      },
-    ]);
-    setInputValue("");
-  };
-
-  const handleDeleteTask = (id) => {
-    const newTasks = tasks.filter((task) => task.id !== id);
-    setTasks(newTasks);
-  };
-
-  const handleCompleteTask = (id) => {
-    const newTasks = tasks.map((task) =>
-      task.id === id ? { ...task, isCompleted: !task.isCompleted } : task
-    );
-    setTasks(newTasks);
-  };
-
-  const handleEditTask = (id) => {
-    const task = tasks.find((task) => task.id === id);
-    setInputValue(task.task);
-    setIsEditing(true);
-    setId(id);
-  };
-
-  const handleEditComplete = () => {
-    if (inputValue === "") {
-      return handleShowError("Debe ingresar una tarea");
-    }
-
-    const exist = tasks.some(
-      (task) => task.task.toLowerCase() === inputValue.toLowerCase()
-    );
-
-    if (exist) {
-      setInputValue("");
-      setIsEditing(false);
-      return handleShowError("La tarea ya existe");
-    }
-
-    const newTasks = tasks.map((task) =>
-      task.id === id
-        ? {
-            ...task,
-            task: inputValue,
-            updated:
-              new Date().toISOString().substring(0, 10) +
-              " " +
-              new Date().toISOString().substring(11, 19),
-          }
-        : task
-    );
-    setTasks(newTasks);
-    setInputValue("");
-    setIsEditing(false);
-  };
+  const {
+    inputValue,
+    setInputValue,
+    tasks,
+    isEditing,
+    handleAddTask,
+    handleCompleteTask,
+    handleDeleteTask,
+    handleEditComplete,
+    handleEditTask,
+  } = useTasks();
 
   return (
     <SafeAreaView style={styles.container}>
