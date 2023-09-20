@@ -16,13 +16,15 @@ import { StyledTouchable } from "./src/components/StyledTouchable";
 export default function App() {
   const [inputValue, setInputValue] = useState("");
   const [tasks, setTasks] = useState([]);
+  const [isEditing, setIsEditing] = useState(false);
+  const [id, setId] = useState(0);
 
   const handleShowError = (error) =>
     Alert.alert("Error", error, [{ text: "Aceptar" }]);
 
   const handleAddTask = () => {
     if (inputValue === "") {
-      return handleShowError("Deebe ingresar una tarea");
+      return handleShowError("Debe ingresar una tarea");
     }
 
     const exist = tasks.some(
@@ -39,6 +41,11 @@ export default function App() {
       {
         id: tasks.length + 1,
         task: inputValue,
+        created:
+          new Date().toISOString().substring(0, 10) +
+          " " +
+          new Date().toISOString().substring(11, 19),
+        updated: "",
         isCompleted: false,
       },
     ]);
@@ -55,7 +62,46 @@ export default function App() {
       task.id === id ? { ...task, isCompleted: !task.isCompleted } : task
     );
     setTasks(newTasks);
-  }
+  };
+
+  const handleEditTask = (id) => {
+    const task = tasks.find((task) => task.id === id);
+    setInputValue(task.task);
+    setIsEditing(true);
+    setId(id);
+  };
+
+  const handleEditComplete = () => {
+    if (inputValue === "") {
+      return handleShowError("Debe ingresar una tarea");
+    }
+
+    const exist = tasks.some(
+      (task) => task.task.toLowerCase() === inputValue.toLowerCase()
+    );
+
+    if (exist) {
+      setInputValue("");
+      setIsEditing(false);
+      return handleShowError("La tarea ya existe");
+    }
+
+    const newTasks = tasks.map((task) =>
+      task.id === id
+        ? {
+            ...task,
+            task: inputValue,
+            updated:
+              new Date().toISOString().substring(0, 10) +
+              " " +
+              new Date().toISOString().substring(11, 19),
+          }
+        : task
+    );
+    setTasks(newTasks);
+    setInputValue("");
+    setIsEditing(false);
+  };
 
   return (
     <SafeAreaView style={styles.container}>
@@ -97,8 +143,8 @@ export default function App() {
             onChangeText={(text) => setInputValue(text)}
           />
           <StyledTouchable
-            onPress={handleAddTask}
-            text={"➕"}
+            onPress={isEditing ? handleEditComplete : handleAddTask}
+            text={isEditing ? "✅" : "➕"}
             width={60}
             height={40}
             backgroundColor={"#DBD6D6"}
@@ -113,13 +159,16 @@ export default function App() {
       </View>
       <FlatList
         data={tasks}
-        renderItem={({ item: { id, task, isCompleted } }) => (
+        renderItem={({ item: { id, task, isCompleted, created, updated } }) => (
           <Todo
             task={task}
             isCompleted={isCompleted}
             id={id}
             handleDelete={handleDeleteTask}
             handleComplete={handleCompleteTask}
+            createdDate={created}
+            updateDate={updated}
+            handleEditing={handleEditTask}
           />
         )}
         keyExtractor={(item) => item.id}
