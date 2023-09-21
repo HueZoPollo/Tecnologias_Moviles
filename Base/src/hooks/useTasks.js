@@ -5,10 +5,16 @@ export const useTasks = () => {
   const [tasks, setTasks] = useState([]);
   const [isEditing, setIsEditing] = useState(false);
   const [id, setId] = useState(0);
+  const [modalVisible, setModalVisible] = useState(false);
+  const [currentTask, setCurrentTask] = useState({});
 
-  const handleAddTask = () => {
+  const isValid = () => {
     if (inputValue === "") {
       return handleShowError("Debe ingresar una tarea");
+    }
+
+    if (inputValue.length > 10) {
+      return handleShowError("La tarea no puede tener mas de 10 caracteres");
     }
 
     const exist = tasks.some(
@@ -17,8 +23,15 @@ export const useTasks = () => {
 
     if (exist) {
       setInputValue("");
+      isEditing && setIsEditing(false);
       return handleShowError("La tarea ya existe");
     }
+
+    return true;
+  }
+
+  const handleAddTask = () => {
+    if (!isValid()) return;
 
     setTasks([
       ...tasks,
@@ -56,19 +69,7 @@ export const useTasks = () => {
   };
 
   const handleEditComplete = () => {
-    if (inputValue === "") {
-      return handleShowError("Debe ingresar una tarea");
-    }
-
-    const exist = tasks.some(
-      (task) => task.task.toLowerCase() === inputValue.toLowerCase()
-    );
-
-    if (exist) {
-      setInputValue("");
-      setIsEditing(false);
-      return handleShowError("La tarea ya existe");
-    }
+    if (!isValid()) return;
 
     const newTasks = tasks.map((task) =>
       task.id === id
@@ -98,6 +99,10 @@ export const useTasks = () => {
     handleDeleteTask,
     handleCompleteTask,
     handleEditTask,
-    handleEditComplete
+    handleEditComplete,
+    modalVisible,
+    setModalVisible,
+    currentTask,
+    setCurrentTask,
   }
 }

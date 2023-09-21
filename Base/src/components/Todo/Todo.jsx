@@ -1,6 +1,6 @@
 import { View, StyleSheet } from "react-native";
 import { StyledText } from "../StyledText";
-import { StyledTouchable } from "../StyledTouchable";
+import { StyledTouchableIcon } from "../StyledTouchableIcon";
 const Todo = ({
   id,
   task,
@@ -10,9 +10,13 @@ const Todo = ({
   createdDate,
   updateDate,
   handleEditing,
+  modalVisible,
+  setModalVisible,
+  setCurrentTask,
 }) => {
+  // const { modalVisible, setModalVisible } = useTasks();
   const height = task.length > 20 ? "auto" : 50;
-  const textComp = isCompleted === false ? "✅" : "❌";
+  const textComp = isCompleted === false ? "checkmark" : "close";
   return (
     <View
       style={[
@@ -36,39 +40,59 @@ const Todo = ({
         />
       </View>
       <View>
-        <View style={{ flexDirection: "row", gap: 8 }}>
-          <StyledTouchable
-            borderWidth={0.5}
-            borderColor={"white"}
+        <View style={{ flexDirection: "row", gap: 5 }}>
+          <StyledTouchableIcon
             borderRadius={10}
-            width={60}
+            borderColor={"#fff"}
+            borderWidth={1}
+            width={40}
             height={30}
-            text={"🗑"}
-            fontSize={18}
-            textAlign={"center"}
+            icon={"trash"}
+            color={"#fff"}
+            size={20}
             onPress={() => handleDelete(id)}
           />
-          <StyledTouchable
-            borderWidth={0.5}
-            borderColor={"white"}
+          <StyledTouchableIcon
             borderRadius={10}
-            width={60}
+            borderColor={"#fff"}
+            borderWidth={1}
+            width={40}
             height={30}
-            text={"📝"}
-            fontSize={18}
-            textAlign={"center"}
+            icon={"create"}
+            color={"#fff"}
+            size={20}
             onPress={() => handleEditing(id)}
           />
-          <StyledTouchable
-            borderWidth={0.5}
-            borderColor={"white"}
+          <StyledTouchableIcon
             borderRadius={10}
-            width={60}
+            borderColor={"#fff"}
+            borderWidth={1}
+            width={40}
             height={30}
-            text={textComp}
-            fontSize={18}
-            textAlign={"center"}
+            icon={textComp}
+            color={"#fff"}
+            size={20}
             onPress={() => handleComplete(id)}
+          />
+          <StyledTouchableIcon
+            borderRadius={10}
+            borderColor={"#fff"}
+            borderWidth={1}
+            width={40}
+            height={30}
+            icon={"eye-outline"}
+            color={"#fff"}
+            size={20}
+            onPress={() => {
+              setModalVisible(!modalVisible);
+              setCurrentTask({
+                id,
+                task,
+                isCompleted,
+                createdDate,
+                updateDate,
+              });
+            }}
           />
         </View>
         <View style={{ justifyContent: "flex-end", alignItems: "flex-end" }}>

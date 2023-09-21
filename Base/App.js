@@ -9,8 +9,9 @@ import {
 } from "react-native";
 import Constants from "expo-constants";
 import Todo from "./src/components/Todo/Todo";
-import { StyledTouchable } from "./src/components/StyledTouchable";
 import { useTasks } from "./src/hooks/useTasks";
+import { StyledTouchableIcon } from "./src/components/StyledTouchableIcon";
+import StyledModal from "./src/components/Modal/StyledModal";
 
 export default function App() {
   const {
@@ -23,6 +24,10 @@ export default function App() {
     handleDeleteTask,
     handleEditComplete,
     handleEditTask,
+    modalVisible,
+    setModalVisible,
+    currentTask,
+    setCurrentTask,
   } = useTasks();
 
   return (
@@ -64,18 +69,16 @@ export default function App() {
             placeholderTextColor={"gray"}
             onChangeText={(text) => setInputValue(text)}
           />
-          <StyledTouchable
+          <StyledTouchableIcon
             onPress={isEditing ? handleEditComplete : handleAddTask}
-            text={isEditing ? "✅" : "➕"}
+            icon={isEditing ? "checkmark" : "add"}
             width={60}
             height={40}
-            backgroundColor={"#DBD6D6"}
-            color={"white"}
+            size={25}
+            color="white"
+            borderWidth={1}
+            borderColor={"#DBD6D6"}
             borderRadius={5}
-            fontWeight={"bold"}
-            textAlign={"center"}
-            padding={5}
-            fontSize={20}
           />
         </View>
       </View>
@@ -91,9 +94,17 @@ export default function App() {
             createdDate={created}
             updateDate={updated}
             handleEditing={handleEditTask}
+            modalVisible={modalVisible}
+            setModalVisible={setModalVisible}
+            setCurrentTask={setCurrentTask}
           />
         )}
         keyExtractor={(item) => item.id}
+      />
+      <StyledModal
+        modalVisible={modalVisible}
+        setModalVisible={setModalVisible}
+        currentTask={currentTask}
       />
       <StatusBar style="auto" backgroundColor="#000" />
     </SafeAreaView>
