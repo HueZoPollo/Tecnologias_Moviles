@@ -1,9 +1,19 @@
 import { useEffect, useState } from "react";
 import { View, StyleSheet, Image } from "react-native";
 import { StyledText } from "../StyledText";
+import { StyledTouchable } from "../StyledTouchable";
 import { Ionicons } from "@expo/vector-icons";
 
-const Character = ({ name, status, species, location, episode, image }) => {
+const Character = ({
+  name,
+  status,
+  species,
+  location,
+  episode,
+  image,
+  navigation,
+  id,
+}) => {
   const [episodes, setEpisodes] = useState([]);
   const clr =
     status === "Alive" ? "#55cc44" : status === "Dead" ? "#d63d2e" : "#d6d63d";
@@ -77,13 +87,31 @@ const Character = ({ name, status, species, location, episode, image }) => {
             fontFamily={"Roboto"}
             color="#95887c"
           />
-          <StyledText
-            text={episodes}
-            fontSize={15}
-            fontFamily={"Roboto"}
-            color="white"
-            width={200}
-          />
+          <View
+            style={{
+              flexDirection: "row",
+              alignItems: "center",
+              justifyContent: "space-between",
+            }}
+          >
+            <StyledText
+              text={episodes}
+              fontSize={15}
+              fontFamily={"Roboto"}
+              color="white"
+              width={150}
+            />
+            <StyledTouchable
+              text={"See more"}
+              color={"white"}
+              width={70}
+              height={25}
+              textAlign={"center"}
+              fontSize={15}
+              onPress={() => navigation.navigate("Info", { id })}
+            />
+            <Ionicons name="chevron-forward" size={15} color="white" />
+          </View>
         </View>
       </View>
     </View>
@@ -95,7 +123,6 @@ const styles = StyleSheet.create({
     backgroundColor: "#3c3e44",
     borderRadius: 10,
     flexDirection: "row",
-    marginHorizontal: 10,
   },
   pad: {
     paddingTop: 8,
