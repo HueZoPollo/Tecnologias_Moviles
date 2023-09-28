@@ -12,7 +12,6 @@ const Login = ({ route }) => {
 
   return (
     <View>
-      <Header />
       <Text>Login</Text>
       <Text>{name}</Text>
       <Button title="Go back" disabled={!canGoBack} onPress={() => goBack()} />

@@ -6,6 +6,7 @@ import { createStackNavigator } from "@react-navigation/stack";
 import { NavigationContainer } from "@react-navigation/native";
 import Home from "./src/screens/Home";
 import Login from "./src/screens/Login";
+import { StyledText } from "./src/components/StyledText";
 
 const Stack = createStackNavigator();
 
@@ -13,25 +14,7 @@ export default function App() {
   return (
     <SafeAreaView style={styles.container}>
       <NavigationContainer>
-        <Stack.Navigator
-          initialRouteName="Home"
-          screenOptions={{
-            headerStyle: {
-              backgroundColor: "#f4511e",
-            },
-            headerTintColor: "#fff",
-            headerTitleStyle: {
-              fontWeight: "bold",
-            },
-            headerTitleAlign: "center",
-            headerLeft: () => (
-              <SafeAreaView>
-                <Text>Left</Text>
-              </SafeAreaView>
-            ),
-            headerShown: false,
-          }}
-        >
+        <Stack.Navigator initialRouteName="Home">
           <Stack.Screen
             name="Home"
             component={Home}
