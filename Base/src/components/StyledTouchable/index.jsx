@@ -14,6 +14,7 @@ export const StyledTouchable = ({
   color,
   textAlign,
   fontWeight,
+  onPress,
 }) => {
   return (
     <TouchableOpacity
@@ -25,7 +26,9 @@ export const StyledTouchable = ({
         borderWidth,
         width,
         height,
+        justifyContent: "center",
       }}
+      onPress={onPress}
     >
       <StyledText
         text={text}

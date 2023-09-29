@@ -10,7 +10,9 @@ export const StyledText = ({
   borderRadius,
   margin,
   width,
+  height,
   textAlign,
+  textAlignVertical,
 }) => {
   return (
     <Text
@@ -23,7 +25,9 @@ export const StyledText = ({
         borderRadius,
         margin,
         width,
+        height,
         textAlign,
+        textAlignVertical,
       }}
     >
       {text}

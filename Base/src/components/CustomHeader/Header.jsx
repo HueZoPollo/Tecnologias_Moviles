@@ -1,31 +1,36 @@
 import React from "react";
 import { View, Text } from "react-native";
 import { useNavigation } from "@react-navigation/native";
-import { AntDesign } from "@expo/vector-icons";
+import { AntDesign, Feather } from "@expo/vector-icons";
+import { StyledText } from "../StyledText";
 
-const Header = () => {
+const Header = ({ text }) => {
   const { canGoBack, goBack } = useNavigation();
   return (
     <View
       style={{
-        backgroundColor: "#f4511e",
+        backgroundColor: "#ecdcc2",
         height: 50,
         alignItems: "center",
         flexDirection: "row",
-        paddingStart: 10,
-        gap: 10,
+        justifyContent: "space-between",
+        paddingHorizontal: 20,
       }}
     >
-      {canGoBack() && (
-        <AntDesign
-          name="leftcircleo"
-          size={24}
-          color="white"
-          onPress={() => goBack()}
-          disabled={!canGoBack()}
-        />
-      )}
-      <Text style={{ color: "white", fontSize: 24 }}>Header</Text>
+      <AntDesign
+        name="left"
+        size={18}
+        color="#b1b1b1"
+        onPress={() => goBack()}
+        disabled={!canGoBack()}
+      />
+      <StyledText
+        text={text}
+        color={"black"}
+        fontSize={30}
+        fontWeight={"bold"}
+      />
+      <Feather name="x" size={18} color="#b1b1b1" />
     </View>
   );
 };

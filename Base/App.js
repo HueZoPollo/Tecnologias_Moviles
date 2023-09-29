@@ -16,32 +16,13 @@ export default function App() {
         <Stack.Navigator
           initialRouteName="Home"
           screenOptions={{
-            headerStyle: {
-              backgroundColor: "#f4511e",
-            },
-            headerTintColor: "#fff",
-            headerTitleStyle: {
-              fontWeight: "bold",
-            },
-            headerTitleAlign: "center",
-            headerLeft: () => (
-              <SafeAreaView>
-                <Text>Left</Text>
-              </SafeAreaView>
-            ),
             headerShown: false,
           }}
         >
-          <Stack.Screen
-            name="Home"
-            component={Home}
-            options={{
-              title: "My home",
-            }}
-          />
+          <Stack.Screen name="Home" component={Home} />
           <Stack.Screen name="Login" component={Login} />
         </Stack.Navigator>
-        <StatusBar style="auto" />
+        <StatusBar style="auto" backgroundColor="#0e6e49" />
       </NavigationContainer>
     </SafeAreaView>
   );
