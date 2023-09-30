@@ -20,6 +20,9 @@ export default function App() {
             component={Home}
             options={{
               title: "My home",
+              headerStyle: {
+                backgroundColor: "white",
+              },
             }}
           />
           <Stack.Screen name="Login" component={Login} />

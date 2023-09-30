@@ -13,10 +13,13 @@ import {
 import Header from "../components/CustomHeader/Header";
 import { useState } from "react";
 import { StyledText } from "../components/StyledText";
+import { FlatList } from "react-native-gesture-handler";
+import Character from "../components/Characters/Character";
 
 const Home = ({ navigation }) => {
   const [isEnabled, setIsEnabled] = useState(false);
   const [isFetching, setIsFetching] = useState(true);
+  const [characters, setCharacters] = useState([]);
   const toggleSwitch = () => setIsEnabled((previousState) => !previousState);
 
   const delay = (ms) => new Promise((res) => setTimeout(res, ms));
@@ -25,9 +28,11 @@ const Home = ({ navigation }) => {
     const fetchData = async () => {
       try {
         const response = await fetch(
-          "https://rickandmortyapi.com/api/character/?page=2"
+          "https://apisimpsons.fly.dev/api/personajes"
         );
         const json = await response.json();
+        // console.log(json.docs);
+        setCharacters(json.docs);
         await delay(5000);
       } catch (error) {
         console.error(error);
@@ -37,26 +42,41 @@ const Home = ({ navigation }) => {
     };
     fetchData();
   }, []);
+
   return (
-    <View>
-      <Switch
-        trackColor={{ false: "#767577", true: "#81b0ff" }}
-        thumbColor={isEnabled ? "#f5dd4b" : "#f4f3f4"}
-        ios_backgroundColor="#3e3e3e"
-        onValueChange={toggleSwitch}
-        value={isEnabled}
-        style={{
-          alignSelf: "center",
-          transform: [{ scaleX: 1.5 }, { scaleY: 1.5 }],
-        }}
-      />
-      {isEnabled && (
-        <StyledText text={"Home"} fontSize={20} textAlign={"center"} />
-      )}
+    <View
+      style={{
+        backgroundColor: "#ffd521",
+        flex: 1,
+        justifyContent: "center",
+        alignItems: "center",
+      }}
+    >
       {isFetching ? (
-        <ActivityIndicator size="large" color="#0000ff" />
+        <View>
+          <ActivityIndicator size="large" color="#0000ff" />
+          <StyledText text={"Cargando..."} fontSize={30} fontWeight={"bold"} />
+        </View>
       ) : (
-        <Text>Ya cargo</Text>
+        <View style={{ marginTop: 10 }}>
+          <FlatList
+            data={characters}
+            renderItem={({
+              item: { Nombre, Imagen, Genero, Estado, Ocupacion },
+            }) => {
+              return (
+                <Character
+                  nombre={Nombre}
+                  imagen={Imagen}
+                  genero={Genero}
+                  estado={Estado}
+                  ocupacion={Ocupacion}
+                />
+              );
+            }}
+            ItemSeparatorComponent={() => <View style={{ padding: 15 }} />}
+          />
+        </View>
       )}
     </View>
   );
