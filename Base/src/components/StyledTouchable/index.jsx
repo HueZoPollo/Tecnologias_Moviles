@@ -26,6 +26,8 @@ export const StyledTouchable = ({
         borderWidth,
         width,
         height,
+        alignItems: "center",
+        justifyContent: "center",
       }}
       onPress={onPress}
     >
