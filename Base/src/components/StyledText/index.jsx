@@ -11,6 +11,7 @@ export const StyledText = ({
   margin,
   width,
   textAlign,
+  textAlignVertical,
 }) => {
   return (
     <Text
@@ -24,6 +25,7 @@ export const StyledText = ({
         margin,
         width,
         textAlign,
+        textAlignVertical,
       }}
     >
       {text}
