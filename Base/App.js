@@ -5,25 +5,30 @@ import Send from "./src/pages/Send";
 import Home from "./src/pages/Home";
 import { createStackNavigator } from "@react-navigation/stack";
 import { NavigationContainer } from "@react-navigation/native";
+import AppContextProvider from "./src/context/AppContext";
+import Balance from "./src/pages/Balance";
 
 const Stack = createStackNavigator();
 
 export default function App() {
   return (
-    <View style={styles.container}>
-      <NavigationContainer>
-        <Stack.Navigator
-          initialRouteName="Home"
-          screenOptions={{
-            headerShown: false,
-          }}
-        >
-          <Stack.Screen name="Home" component={Home} />
-          <Stack.Screen name="Send" component={Send} />
-        </Stack.Navigator>
-      </NavigationContainer>
-      <StatusBar style="light" backgroundColor="#0d0d0d" />
-    </View>
+    <AppContextProvider>
+      <View style={styles.container}>
+        <NavigationContainer>
+          <Stack.Navigator
+            initialRouteName="Home"
+            screenOptions={{
+              headerShown: false,
+            }}
+          >
+            <Stack.Screen name="Home" component={Home} />
+            <Stack.Screen name="Send" component={Send} />
+            <Stack.Screen name="Balance" component={Balance} />
+          </Stack.Navigator>
+        </NavigationContainer>
+        <StatusBar style="light" backgroundColor="#0d0d0d" />
+      </View>
+    </AppContextProvider>
   );
 }
 

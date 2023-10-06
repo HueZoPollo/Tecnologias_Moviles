@@ -1,13 +1,5 @@
 import React from "react";
-import {
-  Text,
-  View,
-  StyleSheet,
-  FlatList,
-  SafeAreaView,
-  TouchableOpacity,
-  ScrollView,
-} from "react-native";
+import { View, StyleSheet, FlatList, SafeAreaView } from "react-native";
 import Header from "../components/Header";
 import { StyledImage } from "../components/StyledImage";
 import { Avatar } from "../../assets";
@@ -15,8 +7,10 @@ import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { StyledText } from "../components/StyledText";
 import { StyledTouchable } from "../components/StyledTouchable";
 import Numero from "../components/Number";
+import { useAppContext } from "../hooks/useAppContext";
 
 const Send = () => {
+  const { theme } = useAppContext();
   const data = [
     { id: 1, name: "1" },
     { id: 2, name: "2" },
@@ -31,6 +25,24 @@ const Send = () => {
     { id: 11, name: "0" },
     { id: 12, name: "." },
   ];
+
+  const styles = StyleSheet.create({
+    container: {
+      flex: 1,
+      backgroundColor: theme.backgroundColorCustom,
+    },
+    icon: {
+      width: 45,
+      height: 45,
+      backgroundColor: theme.buttonColor,
+      alignItems: "center",
+      justifyContent: "center",
+      borderRadius: 30,
+      position: "absolute",
+      right: 0,
+      left: 200,
+    },
+  });
 
   return (
     <SafeAreaView style={styles.container}>
@@ -48,20 +60,20 @@ const Send = () => {
             <MaterialCommunityIcons
               name="credit-card-check-outline"
               size={25}
-              color="black"
+              color={theme.iconColorBlack}
             />
           </View>
         </View>
         <View style={{ alignItems: "center", marginTop: 15 }}>
           <StyledText
             text="Benjamin Parker"
-            color={"white"}
+            color={theme.textColor}
             fontSize={23}
             fontWeight={300}
           />
           <StyledText
             text="**** 3294"
-            color={"white"}
+            color={theme.textMinusColor}
             fontSize={15}
             fontWeight={200}
           />
@@ -75,7 +87,7 @@ const Send = () => {
         >
           <StyledText
             text="$340"
-            color={"white"}
+            color={theme.textColor}
             fontSize={50}
             fontWeight={500}
             fontFamily={"Roboto"}
@@ -84,12 +96,12 @@ const Send = () => {
             style={{
               borderLeftWidth: 3,
               width: 1,
-              borderLeftColor: "#b4bc66",
+              borderLeftColor: theme.buttonColor,
             }}
           ></View>
           <StyledText
             text=".00"
-            color={"#8e8e8e"}
+            color={theme.textMinusColor}
             fontSize={50}
             fontWeight={500}
           />
@@ -106,13 +118,13 @@ const Send = () => {
         <View style={{ alignItems: "center", padding: 10, marginTop: 10 }}>
           <StyledTouchable
             text={"Send"}
-            color={"black"}
+            color={theme.textColorButton}
             fontWeight={"bold"}
             fontSize={20}
             width={"100%"}
             height={60}
             borderRadius={30}
-            backgroundColor={"#eaf984"}
+            backgroundColor={theme.buttonColor}
           />
         </View>
       </View>
@@ -120,21 +132,4 @@ const Send = () => {
   );
 };
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#0d0d0d",
-  },
-  icon: {
-    width: 45,
-    height: 45,
-    backgroundColor: "#eaf984",
-    alignItems: "center",
-    justifyContent: "center",
-    borderRadius: 30,
-    position: "absolute",
-    right: 0,
-    left: 200,
-  },
-});
 export default Send;
