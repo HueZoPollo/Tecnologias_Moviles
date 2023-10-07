@@ -3,7 +3,7 @@ import React from "react";
 import { useNavigation } from "@react-navigation/native";
 import { useAuthContext } from "../hooks/useAuthContexts";
 
-const Home = () => {
+const Account = () => {
   const navigation = useNavigation();
   const { handleLogOut: onLogOut } = useAuthContext();
 
@@ -15,18 +15,13 @@ const Home = () => {
       console.log(error);
     }
   };
-
   return (
     <View>
-      <Button
-        title="Ir a mi cuenta"
-        onPress={() => navigation.navigate("Account")}
-      />
       <Button title="Cerrar sesion" onPress={() => handleLogOut()} />
     </View>
   );
 };
 
-export default Home;
+export default Account;
 
 const styles = StyleSheet.create({});

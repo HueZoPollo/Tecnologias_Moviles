@@ -1,40 +1,54 @@
-import "react-native-gesture-handler";
 import { StatusBar } from "expo-status-bar";
-import { SafeAreaView, StyleSheet, Text, View } from "react-native";
+import { StyleSheet, Text, View } from "react-native";
 import Constants from "expo-constants";
+import "react-native-gesture-handler";
 import { createStackNavigator } from "@react-navigation/stack";
-// import { NavigationContainer } from "@react-navigation/native";
-// import Home from "./src/screens/Home";
-// import Login from "./src/screens/Login";
-// import { StyledText } from "./src/components/StyledText";
-import Card from "./src/components/Card";
-import AppContextProvider from "./src/components/Context/AppContext";
+import Home from "./src/screens/Home";
+import Login from "./src/screens/Login";
+import { NavigationContainer } from "@react-navigation/native";
+import AuthContextProvider from "./src/Context/AuthContext";
+import Account from "./src/screens/Account";
+import { useAuthContext } from "./src/hooks/useAuthContexts";
 
 const Stack = createStackNavigator();
 
-const person = {
-  id: 1,
-  name: "Pablo",
-  lastname: "Juarez",
-  age: 22,
-  location: "Morelia",
-  country: "Mexico",
-};
-
 export default function App() {
   return (
-    <AppContextProvider>
-      <View style={styles.container}>
-        <Card />
-        <StatusBar style="auto" />
-      </View>
-    </AppContextProvider>
+    <AuthContextProvider>
+      <NavigationContainer>
+        <View style={styles.container}>
+          <Stack.Navigator initialRouteName="Login">
+            {/* {Layout()} */}
+            <Stack.Screen name="Home" component={Home} />
+            <Stack.Screen name="Account" component={Account} />
+            <Stack.Screen name="Login" component={Login} />
+          </Stack.Navigator>
+          <StatusBar style="auto" />
+        </View>
+      </NavigationContainer>
+    </AuthContextProvider>
   );
 }
+
+const Layout = () => {
+  const { user } = useAuthContext();
+
+  if (!user) {
+    return <Stack.Screen name="Login" component={Login} />;
+  }
+
+  return (
+    <>
+      <Stack.Screen name="Home" component={Home} />
+      <Stack.Screen name="Account" component={Account} />
+    </>
+  );
+};
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    marginTop: Constants.statusBarHeight,
+    backgroundColor: "#fff",
+    paddingTop: Constants.statusBarHeight,
   },
 });
