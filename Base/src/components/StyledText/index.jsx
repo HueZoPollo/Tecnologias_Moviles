@@ -11,6 +11,8 @@ export const StyledText = ({
   margin,
   width,
   textAlign,
+  textAlignVertical,
+  onPress,
 }) => {
   return (
     <Text
@@ -24,7 +26,9 @@ export const StyledText = ({
         margin,
         width,
         textAlign,
+        textAlignVertical,
       }}
+      onPress={onPress}
     >
       {text}
     </Text>

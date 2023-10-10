@@ -9,6 +9,8 @@ export const StyledInput = ({
   paddingHorizontal,
   height,
   pass,
+  onChangeText,
+  value,
 }) => {
   return (
     <TextInput
@@ -22,6 +24,8 @@ export const StyledInput = ({
         height,
       }}
       secureTextEntry={pass}
+      onChangeText={onChangeText}
+      value={value}
     ></TextInput>
   );
 };
