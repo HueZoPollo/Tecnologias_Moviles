@@ -7,9 +7,9 @@ const Account = () => {
   const navigation = useNavigation();
   const { handleLogOut: onLogOut } = useAuthContext();
 
-  const handleLogOut = () => {
+  const handleLogOut = async () => {
     try {
-      onLogOut();
+      await onLogOut();
       navigation.navigate("Login");
     } catch (error) {
       console.log(error);

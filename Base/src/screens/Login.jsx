@@ -9,17 +9,17 @@ import {
 import React, { useState } from "react";
 import { useAuthContext } from "../hooks/useAuthContexts";
 import { useNavigation } from "@react-navigation/native";
-
+import AsyncStorage from "@react-native-async-storage/async-storage";
 const Login = () => {
   const navigation = useNavigation();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
-  const { handleLogin: onLogin } = useAuthContext();
+  const { handleLogin: onLogin, user } = useAuthContext();
 
-  const handleLogin = () => {
+  const handleLogin = async () => {
     try {
-      const loginValue = onLogin(username, password);
+      const loginValue = await onLogin(username, password);
       if (loginValue) {
         navigation.navigate("Home");
         setPassword("");
