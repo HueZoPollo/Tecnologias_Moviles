@@ -10,8 +10,6 @@ import {
 import { useAuthContext } from "../hooks/useAuthContexts";
 import { useNavigation } from "@react-navigation/native";
 import { StyledText } from "../components/StyledText";
-import { StyledInput } from "../components/StyledInput";
-import { StyledTouchable } from "../components/StyledTouchable";
 import { Food } from "../../assets";
 
 const Login = () => {
@@ -21,11 +19,11 @@ const Login = () => {
 
   const { handleLogin: onLogin } = useAuthContext();
 
-  const handleLogin = () => {
+  const handleLogin = async () => {
     try {
-      const loginValue = onLogin(username, password);
+      const loginValue = await onLogin(username, password);
       if (loginValue) {
-        navigation.navigate("StartNav", { screen: "Start" });
+        navigation.navigate("StartNav", { screen: "Home" });
         setPassword("");
         setUsername("");
       } else {

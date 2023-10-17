@@ -5,8 +5,10 @@ import { StyledText } from "../components/StyledText";
 import { StyledTouchable } from "../components/StyledTouchable";
 import { Pizza } from "../../assets";
 import { StyledImage } from "../components/StyledImage";
+import { useAuthContext } from "../hooks/useAuthContexts";
 
 const Start = () => {
+  const { user } = useAuthContext();
   const navigation = useNavigation();
   return (
     <View style={styles.container}>
@@ -35,9 +37,13 @@ const Start = () => {
           color={"#fff"}
           fontSize={18}
           borderRadius={20}
-          onPress={() =>
-            navigation.jumpTo("HomeNav", navigation.navigate("HomeNav"))
-          }
+          onPress={() => {
+            if (user) {
+              navigation.navigate("StartNav", { screen: "HomeNav" });
+            } else {
+              navigation.navigate("Login", { screen: "Login" });
+            }
+          }}
         />
       </View>
     </View>
