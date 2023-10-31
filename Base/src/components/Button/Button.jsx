@@ -6,11 +6,26 @@ const Button = ({ text, role, onPress }) => {
     <TouchableOpacity
       style={[
         styles.container,
-        role === "number" ? styles.numberContainer : styles.operatorContainer,
+        role === "number"
+          ? styles.numberContainer
+          : role === "operator"
+          ? styles.operatorContainer
+          : styles.equalContainer,
       ]}
       onPress={() => onPress(text)}
     >
-      <Text style={styles.numberText}>{text}</Text>
+      <Text
+        style={[
+          styles.text,
+          role === "number"
+            ? styles.numberText
+            : role === "operator"
+            ? styles.operatorText
+            : styles.equalText,
+        ]}
+      >
+        {text}
+      </Text>
     </TouchableOpacity>
   );
 };
@@ -23,19 +38,35 @@ const styles = StyleSheet.create({
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
-    borderRadius: 10,
+    borderRadius: 40,
   },
 
   numberContainer: {
-    backgroundColor: "blue",
+    backgroundColor: "white",
   },
 
   operatorContainer: {
-    backgroundColor: "gray",
+    backgroundColor: "#f7e3e5",
+  },
+
+  equalContainer: {
+    backgroundColor: "#ff6877",
+    width: 140,
+  },
+  text: {
+    fontSize: 30,
+    fontWeight: "bold",
   },
 
   numberText: {
-    fontSize: 24,
+    color: "#aaaaaa",
+  },
+
+  operatorText: {
+    color: "#ff6877",
+  },
+
+  equalText: {
     color: "white",
   },
 });
