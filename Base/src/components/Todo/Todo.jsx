@@ -10,9 +10,9 @@ const Todo = ({
   createdDate,
   updateDate,
   handleEditing,
-  modalVisible,
-  setModalVisible,
-  setCurrentTask,
+  // modalVisible,
+  // setModalVisible,
+  // setCurrentTask,
 }) => {
   // const { modalVisible, setModalVisible } = useTasks();
   const height = task.length > 20 ? "auto" : 50;
@@ -74,7 +74,7 @@ const Todo = ({
             size={20}
             onPress={() => handleComplete(id)}
           />
-          <StyledTouchableIcon
+          {/* <StyledTouchableIcon
             borderRadius={10}
             borderColor={"#fff"}
             borderWidth={1}
@@ -93,7 +93,7 @@ const Todo = ({
                 updateDate,
               });
             }}
-          />
+          /> */}
         </View>
         <View style={{ justifyContent: "flex-end", alignItems: "flex-end" }}>
           <StyledText
